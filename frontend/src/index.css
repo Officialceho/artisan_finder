@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-canvas text-ink font-body antialiased;
+    background-image: radial-gradient(circle at 1px 1px, rgba(36, 30, 26, 0.05) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+  }
+  :focus-visible {
+    outline: 2px solid theme('colors.rust.500');
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Signature element: a hand-run "stitch" line, used as the dividing motif
+     across the whole product — hero underline, card seams, section breaks. */
+  .stitch-line {
+    background-image: repeating-linear-gradient(
+      90deg,
+      currentColor 0,
+      currentColor 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    height: 2px;
+  }
+  .stitch-line-v {
+    background-image: repeating-linear-gradient(
+      180deg,
+      currentColor 0,
+      currentColor 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    width: 2px;
+  }
+
+  .stitch-card {
+    @apply relative bg-canvas-soft rounded-card border border-ink/10 shadow-stitched;
+  }
+  .stitch-card::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border-radius: 1rem;
+    border: 1.5px dashed rgba(36, 30, 26, 0.16);
+    pointer-events: none;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-body font-semibold text-sm tracking-wide transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-rust-500 text-canvas-soft hover:bg-rust-600 active:scale-[0.98] shadow-[0_6px_0_0_theme(colors.rust.700)] hover:shadow-[0_4px_0_0_theme(colors.rust.700)] hover:translate-y-[2px];
+  }
+  .btn-secondary {
+    @apply btn bg-transparent text-ink border-2 border-ink/80 hover:bg-ink hover:text-canvas-soft;
+  }
+  .btn-teal {
+    @apply btn bg-teal-500 text-canvas-soft hover:bg-teal-600 active:scale-[0.98] shadow-[0_6px_0_0_theme(colors.teal.700)] hover:shadow-[0_4px_0_0_theme(colors.teal.700)] hover:translate-y-[2px];
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border-2 border-ink/15 bg-canvas-soft px-4 py-3 text-ink placeholder:text-ink/40 focus:border-rust-500 focus:outline-none transition-colors;
+  }
+  .label-field {
+    @apply block font-mono text-xs uppercase tracking-widest text-ink/60 mb-1.5;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-rust-500;
+  }
+}
